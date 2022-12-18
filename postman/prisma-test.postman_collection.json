@@ -115,6 +115,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete-user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/639f0acbdcbbaee9c145ba67",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"639f0acbdcbbaee9c145ba67"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -189,12 +209,129 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "current-question",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update-question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"hehe\",\r\n    \"endsAt\": \"2023-12-18T15:54:07.883Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/question/update/639f3a4a8d433d613be0fbc2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"question",
+								"update",
+								"639f3a4a8d433d613be0fbc2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "vote",
-			"item": []
+			"item": [
+				{
+					"name": "getAll-votes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/vote/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vote",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-vote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"choice\":\"option 1\",\r\n    \"voterName\":\"abdel Lilah\",\r\n    \"questionId\":\"639f3a4a8d433d613be0fbc2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/vote/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vote",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-vote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"choice\":\"option 3\",\r\n    \"id\":\"639f4b340641b52a8ff6c116\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/vote/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vote",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
