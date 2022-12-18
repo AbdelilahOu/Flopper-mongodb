@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Questions {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  options   Json
+  endsAt    DateTime
+  userId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  vote      Vote[]
+}
+
+model User {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  name      String      @unique()
+  questions Questions[]
+  vote      Vote[]
+}
+
+model Vote {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime  @default(now())
+  choice     Int
+  voter      User      @relation(fields: [voterName], references: [name])
+  voterName  String
+  question   Questions @relation(fields: [questionId], references: [id])
+  questionId String    @db.ObjectId
+}
