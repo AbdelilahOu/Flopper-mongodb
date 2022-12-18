@@ -69,3 +69,63 @@ export const deleteQuestion = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getQuestionVotes = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const questionVotes = await prisma.questions.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        vote: true,
+      },
+    });
+    res.json({
+      questionVotes,
+    });
+  } catch (error) {
+    res.send({
+      err: error?.message,
+    });
+  }
+};
+
+export const updateQuestion = async (req: Request, res: Response) => {
+  try {
+    const { options, title, endsAt } = req.body;
+    const { id } = req.params;
+    const question = await prisma.questions.update({
+      where: {
+        id,
+      },
+      data: {
+        options,
+        title,
+        endsAt,
+      },
+    });
+    res.json({
+      question,
+    });
+  } catch (error) {
+    res.send({
+      err: error?.message,
+    });
+  }
+};
+
+export const getCurrentQuestions = async (req: Request, res: Response) => {
+  try {
+    const question = await prisma.questions.findMany({
+      where: {},
+    });
+    res.json({
+      question,
+    });
+  } catch (error) {
+    res.send({
+      err: error?.message,
+    });
+  }
+};

@@ -1,12 +1,17 @@
 import { Router } from "express";
-import { createVote, getAllVotes } from "../controller/voteController";
+import {
+  getAllVotes,
+  createVote,
+  deleteVote,
+  updateVote,
+} from "../controller/voteController";
 
 const voteRouter = Router();
 
 voteRouter
   .get("/all", getAllVotes)
   .post("/create", createVote)
-  .post("/update")
-  .post("/withQuestions");
+  .post("/update", updateVote)
+  .delete("/:id", deleteVote);
 
 export default voteRouter;

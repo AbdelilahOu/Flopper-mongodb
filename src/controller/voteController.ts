@@ -39,3 +39,38 @@ export const getAllVotes = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const updateVote = async (req: Request, res: Response) => {
+  const { choice, id } = req.body;
+  try {
+    const votes = await prisma.vote.update({
+      where: {
+        id,
+      },
+      data: {
+        choice,
+      },
+    });
+    res.json({ votes });
+  } catch (error) {
+    res.send({
+      err: error?.message,
+    });
+  }
+};
+
+export const deleteVote = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const vote = await prisma.vote.delete({
+      where: {
+        id,
+      },
+    });
+    res.json({ vote });
+  } catch (error) {
+    res.send({
+      err: error?.message,
+    });
+  }
+};

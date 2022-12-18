@@ -92,16 +92,16 @@ export const deleteAllUsers = async (req: Request, res: Response) => {
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const deletedUser = await prisma.user.delete({
+    where: {
+      id,
+    },
+  });
+  res.json({
+    deletedUser,
+  });
   try {
-    const { id } = req.params;
-    const deletedUser = await prisma.user.deleteMany({
-      where: {
-        id,
-      },
-    });
-    res.json({
-      deletedUser,
-    });
   } catch (error) {
     res.send({
       err: error?.message,
