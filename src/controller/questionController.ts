@@ -93,16 +93,13 @@ export const getQuestionVotes = async (req: Request, res: Response) => {
 
 export const updateQuestion = async (req: Request, res: Response) => {
   try {
-    const { options, title, endsAt } = req.body;
     const { id } = req.params;
     const question = await prisma.questions.update({
       where: {
         id,
       },
       data: {
-        options,
-        title,
-        endsAt,
+        ...req.body,
       },
     });
     res.json({
@@ -117,8 +114,16 @@ export const updateQuestion = async (req: Request, res: Response) => {
 
 export const getCurrentQuestions = async (req: Request, res: Response) => {
   try {
+    const currentDate = new Date();
     const question = await prisma.questions.findMany({
-      where: {},
+      where: {
+        createdAt: {
+          lt: currentDate,
+        },
+        endsAt: {
+          gt: currentDate,
+        },
+      },
     });
     res.json({
       question,

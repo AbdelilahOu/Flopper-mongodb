@@ -13,7 +13,7 @@ const userRouter = Router();
 userRouter
   .get("/all", getAllUsers)
   .post("/create", createUser)
-  .post("/update", updateUser)
+  .post("/update/:id", updateUser)
   .post("/withQuestions", getWithQuestions)
   .delete("/:id", deleteUser)
   .delete("/all", deleteAllUsers);

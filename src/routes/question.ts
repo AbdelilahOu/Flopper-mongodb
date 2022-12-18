@@ -15,7 +15,7 @@ questionRouter
   .get("/all", getAllQuestion)
   .post("/create", createQuestion)
   .post("/current", getCurrentQuestions)
-  .post("/update", updateQuestion)
+  .post("/update/:id", updateQuestion)
   .post("/:id", getQuestionVotes)
   .delete("/all", deleteAllQuestion)
   .delete("/:id", deleteQuestion);

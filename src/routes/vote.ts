@@ -11,7 +11,7 @@ const voteRouter = Router();
 voteRouter
   .get("/all", getAllVotes)
   .post("/create", createVote)
-  .post("/update", updateVote)
+  .post("/update/:id", updateVote)
   .delete("/:id", deleteVote);
 
 export default voteRouter;

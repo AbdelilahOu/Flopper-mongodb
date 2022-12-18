@@ -41,7 +41,8 @@ export const getAllVotes = async (req: Request, res: Response) => {
 };
 
 export const updateVote = async (req: Request, res: Response) => {
-  const { choice, id } = req.body;
+  const { choice } = req.body;
+  const { id } = req.params;
   try {
     const votes = await prisma.vote.update({
       where: {
