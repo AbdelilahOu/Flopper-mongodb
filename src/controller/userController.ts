@@ -17,10 +17,12 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { name } = req.body;
+    const { name, email, password } = req.body;
     const user = await prisma.user.create({
       data: {
         name,
+        email,
+        password,
       },
     });
     res.json({
@@ -40,7 +42,7 @@ export const updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     const user = await prisma.user.update({
       where: {
-        id,
+        id: Number(id),
       },
       data: {
         name,
@@ -65,7 +67,7 @@ export const getWithQuestions = async (req: Request, res: Response) => {
         id,
       },
       include: {
-        questions: true,
+        Question: true,
       },
     });
     res.json({
@@ -96,7 +98,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   const deletedUser = await prisma.user.delete({
     where: {
-      id,
+      id: Number(id),
     },
   });
   res.json({

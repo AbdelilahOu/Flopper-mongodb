@@ -3,11 +3,12 @@ import prisma from "../utils/prisma";
 
 export const getAllQuestion = async (req: Request, res: Response) => {
   try {
-    const questions = await prisma.questions.findMany({});
+    const questions = await prisma.question.findMany();
     res.json({
       questions,
     });
   } catch (error) {
+    console.log(error);
     res.send({
       err: error?.message,
     });
@@ -17,14 +18,14 @@ export const getAllQuestion = async (req: Request, res: Response) => {
 export const createQuestion = async (req: Request, res: Response) => {
   try {
     const { title, options, userId, endsAt } = req.body;
-    const question = await prisma.questions.create({
+    const question = await prisma.question.create({
       data: {
         title,
         options,
         endsAt,
-        user: {
+        User: {
           connect: {
-            id: userId,
+            id: Number(userId),
           },
         },
       },
@@ -41,7 +42,7 @@ export const createQuestion = async (req: Request, res: Response) => {
 
 export const deleteAllQuestion = async (req: Request, res: Response) => {
   try {
-    const question = await prisma.questions.deleteMany({});
+    const question = await prisma.question.deleteMany({});
     res.json({
       question,
     });
@@ -55,9 +56,9 @@ export const deleteAllQuestion = async (req: Request, res: Response) => {
 export const deleteQuestion = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const deleteQuestion = await prisma.questions.deleteMany({
+    const deleteQuestion = await prisma.question.deleteMany({
       where: {
-        id,
+        id: Number(id),
       },
     });
     res.json({
@@ -73,12 +74,12 @@ export const deleteQuestion = async (req: Request, res: Response) => {
 export const getQuestionVotes = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const questionVotes = await prisma.questions.findUnique({
+    const questionVotes = await prisma.question.findUnique({
       where: {
-        id,
+        id: Number(id),
       },
       include: {
-        vote: true,
+        Vote: true,
       },
     });
     res.json({
@@ -94,9 +95,9 @@ export const getQuestionVotes = async (req: Request, res: Response) => {
 export const updateQuestion = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const question = await prisma.questions.update({
+    const question = await prisma.question.update({
       where: {
-        id,
+        id: Number(id),
       },
       data: {
         ...req.body,
@@ -115,7 +116,7 @@ export const updateQuestion = async (req: Request, res: Response) => {
 export const getCurrentQuestions = async (req: Request, res: Response) => {
   try {
     const currentDate = new Date();
-    const question = await prisma.questions.findMany({
+    const question = await prisma.question.findMany({
       where: {
         createdAt: {
           lt: currentDate,
